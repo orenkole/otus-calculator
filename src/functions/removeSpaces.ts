@@ -1,0 +1,1 @@
+export const removeSpaces = (string: string): string => string.replace(" ", "");
