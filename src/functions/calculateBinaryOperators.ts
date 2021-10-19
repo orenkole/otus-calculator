@@ -6,7 +6,7 @@ import { power } from "./power";
 
 export const calculateBinaryOperators = (expression: string): string => {
   const operands = expression.split(/[+]|[-]|[*]|[/]|[\^]/);
-  const operators = Array.isArray(expression.split(/[0-9\.]+/)) && expression.split(/[0-9\.]+/).slice(1, -1);
+  const operators = Array.isArray(expression.split(/[0-9.]+/)) && expression.split(/[0-9.]+/).slice(1, -1);
   while (
     operators 
     && ( operators.includes("^"))

@@ -1,31 +1,47 @@
-const path = require('path');
-const ESLintPlugin = require('eslint-webpack-plugin');
+import path from "path";
+
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpackRules from "./webpackRules";
+
+const __dirname = path.resolve();
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.ts',
+  entry: "./src/index.tsx",
+  devtool: "source-map",
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+    alias: {
+      types: path.resolve(__dirname, "src/types"),
+      components: path.resolve(__dirname, "src/components"),
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+  output: {
+    path: path.join(__dirname, "/dist"),
+    filename: "./index.js",
+    publicPath: "/",
+    // https://github.com/GoogleChromeLabs/worker-plugin/issues/20
+    globalObject: "(typeof self!='undefined'?self:global)",
+  },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        loader: 'babel-loader',
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre"
+        test: /\.worker\.(ts|js)$/,
+        use: { loader: "worker-loader" },
       },
+      ...webpackRules,
     ],
   },
-  plugins: [new ESLintPlugin()],
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
   devServer: {
-    static: './dist',
+    historyApiFallback: true,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+  ],
 };
