@@ -8,7 +8,8 @@
     "test-coverage": "jest --coverage",
     "build": "babel --out-file dist/bundle.js src/index.ts",
     "start": "webpack serve --open",
-    "lint": "eslint . --fix --ext .ts,.tsx"
+    "lint": "eslint . --fix --ext .ts,.tsx",
+    "calc": "npx ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
