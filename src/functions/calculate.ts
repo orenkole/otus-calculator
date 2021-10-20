@@ -9,7 +9,7 @@ import { square } from "./square";
 import { fibOps } from "./fibOps";
 
 export const performMath = (expression: string): string => {
-  const fibOpResult = fibOps(expression)
+  const fibOpResult = fibOps(expression);
   const sinOpResult = sinOps(fibOpResult);
   const cosOpResult = cosOps(sinOpResult);
   const tanOpResult = tanOps(cosOpResult);
